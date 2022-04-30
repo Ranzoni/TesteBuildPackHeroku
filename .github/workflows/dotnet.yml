@@ -8,7 +8,7 @@ on:
     
 env:
   HEROKU_USERNAME: ${{ secrets.HEROKU_USERNAME }}
-  HEROKU_PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
 jobs:
   deploy:
@@ -17,6 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "teste-buildpack" #Must be unique in Heroku
+        heroku_email: $HEROKU_USERNAME
+        usedocker: false
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
@@ -29,4 +35,4 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Publish
       run: |
-        heroku
+        heroku 
