@@ -28,9 +28,9 @@ namespace TesteBuildPackHeroku.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public WeatherForecast Get()
         {
-            return _context.WeatherForecasts;
+            return _context.WeatherForecasts.FirstOrDefault();
         }
     }
 }
